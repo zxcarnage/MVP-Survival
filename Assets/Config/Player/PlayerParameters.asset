@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abf0a1d272794720a2e46b1f6d5396c8, type: 3}
-  m_Name: GameSettingsInstaller
+  m_Script: {fileID: 11500000, guid: eabaddf9a9f64c90a372b6f801afe53e, type: 3}
+  m_Name: PlayerParameters
   m_EditorClassIdentifier: 
-  _cameraParameters: {fileID: 11400000, guid: 6606cd450b8ab1c49a705db0ebff4dc3, type: 2}
-  _playerParameters: {fileID: 11400000, guid: 95915edc83c81cb4484b1d2a8feabdb4, type: 2}
+  <Speed>k__BackingField: 100
