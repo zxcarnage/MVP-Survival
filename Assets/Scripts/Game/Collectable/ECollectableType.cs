@@ -1,0 +1,9 @@
+namespace Game.Collectable
+{
+    public enum ECollectableType
+    {
+        None = 0,
+        Wood = 1,
+        Grass = 2,
+    }
+}

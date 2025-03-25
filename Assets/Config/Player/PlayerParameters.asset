@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: PlayerParameters
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 100
+  <JumpForce>k__BackingField: 6
