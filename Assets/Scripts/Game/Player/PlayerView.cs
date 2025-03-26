@@ -1,5 +1,6 @@
 using System;
 using Db.Player;
+using Game.Collectable;
 using Game.Player.Presenter;
 using Game.Player.Presenter.Jump;
 using Game.Player.Presenter.Jump.Model;
@@ -18,6 +19,9 @@ namespace Game.Player
         private IPlayerJumpPresenter _playerJumpPresenter;
         private JumpModel _jumpModel;
         private IPlayerParameters _playerParameters;
+        private ICollectablePresenter _collectablePresenter;
+
+        private Transform _transform;
 
         [Inject]
         public void Construct(
@@ -25,6 +29,7 @@ namespace Game.Player
             JumpModel jumpModel,
             IPlayerJumpPresenter playerJumpPresenter,
             IPlayerMovementPresenter playerMovementPresenter,
+            ICollectablePresenter collectablePresenter,
             IPlayerParameters playerParameters
         )
         {
@@ -33,11 +38,14 @@ namespace Game.Player
             _playerJumpPresenter = playerJumpPresenter;
             _playerMovementPresenter = playerMovementPresenter;
             _movementDirectionModel = movementDirectionModel;
+            _collectablePresenter = collectablePresenter;
         }
 
         private void Start()
         {
+            _transform = _rigidbody.transform;
             _playerJumpPresenter.Initialize();
+            _collectablePresenter.Initialize(_transform);
             _jumpModel.ShouldJump.Subscribe(Jump);
         }
 
@@ -50,7 +58,7 @@ namespace Game.Player
         private void Move()
         {
             var inputDirection = _movementDirectionModel.Direction;
-            var worldDirection = _rigidbody.transform.TransformDirection(inputDirection);
+            var worldDirection = _transform.TransformDirection(inputDirection);
             _rigidbody.velocity = new Vector3(worldDirection.x, _rigidbody.velocity.y, worldDirection.z);
         }
 

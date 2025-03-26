@@ -1,7 +1,10 @@
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 namespace Game.Collectable
 {
     public interface ICollectablePresenter
     {
-        void Collect(ECollectableType type);
+        void Initialize(Transform player);
     }
 }

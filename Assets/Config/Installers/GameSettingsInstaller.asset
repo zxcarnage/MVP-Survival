@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraParameters: {fileID: 11400000, guid: 6606cd450b8ab1c49a705db0ebff4dc3, type: 2}
   _playerParameters: {fileID: 11400000, guid: 95915edc83c81cb4484b1d2a8feabdb4, type: 2}
+  _collectableParameters: {fileID: 11400000, guid: 83a4d5f62da90654793716045f30d916, type: 2}
