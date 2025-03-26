@@ -1,12 +1,12 @@
 using System;
-using System.Collections.Generic;
 using Game.Collectable;
+using UniRx;
 
 namespace Game.Player
 {
     public class InventoryModel
     {
-        public Dictionary<ECollectableType, int> Inventory = new ();
+        public readonly ReactiveDictionary<ECollectableType, int> Inventory = new ();
 
         public InventoryModel()
         {
