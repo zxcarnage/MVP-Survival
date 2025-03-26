@@ -14,13 +14,16 @@ namespace Game.Collectable
         private readonly IInputProvider _inputProvider;
         private readonly InventoryModel _inventoryModel;
         private bool _taskRunning = false;
+        private readonly ExperienceModel _experienceModel;
 
         public CollectablePresenter(
             ICollectableParameters collectableParameters,
             IInputProvider inputProvider,
-            InventoryModel inventoryModel
+            InventoryModel inventoryModel,
+            ExperienceModel experienceModel
         )
         {
+            _experienceModel = experienceModel;
             _collectableParameters = collectableParameters;
             _inputProvider = inputProvider;
             _inventoryModel = inventoryModel;
@@ -55,6 +58,7 @@ namespace Game.Collectable
             await UniTask.WaitForSeconds(collectTime);
             
             _inventoryModel.Inventory[type]++;
+            _experienceModel.Level.Value++;
             Object.Destroy(other.gameObject);
             _taskRunning = false;
             Debug.Log($"{_inventoryModel.Inventory[type]}");

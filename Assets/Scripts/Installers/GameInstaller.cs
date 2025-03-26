@@ -6,6 +6,7 @@ using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump.Impl;
 using Game.Player.Presenter.Jump.Model;
 using Game.Services.Input.Impl;
+using Game.Services.Skill;
 using Zenject;
 
 namespace Installers
@@ -18,6 +19,7 @@ namespace Installers
             
             //TODO:SERVICES
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<SkillService>().AsSingle();
             
             //TODO:PRESENTERS
             Container.BindInterfacesAndSelfTo<CameraPresenter>().AsSingle();
@@ -31,6 +33,8 @@ namespace Installers
             Container.Bind<JumpModel>().AsSingle();
             Container.Bind<GroundedModule>().AsSingle();
             Container.Bind<InventoryModel>().AsSingle();
+            Container.Bind<ExperienceModel>().AsSingle();
+            Container.Bind<SkillPointsModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
         }
