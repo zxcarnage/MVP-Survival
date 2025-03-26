@@ -18,7 +18,7 @@ namespace Game.Player
         private IPlayerMovementPresenter _playerMovementPresenter;
         private IPlayerJumpPresenter _playerJumpPresenter;
         private JumpModel _jumpModel;
-        private IPlayerParameters _playerParameters;
+        private IPlayerParametersProvider _playerParametersProvider;
         private ICollectablePresenter _collectablePresenter;
 
         private Transform _transform;
@@ -30,11 +30,11 @@ namespace Game.Player
             IPlayerJumpPresenter playerJumpPresenter,
             IPlayerMovementPresenter playerMovementPresenter,
             ICollectablePresenter collectablePresenter,
-            IPlayerParameters playerParameters
+            IPlayerParametersProvider playerParametersProvider
         )
         {
             _jumpModel = jumpModel;
-            _playerParameters = playerParameters;
+            _playerParametersProvider = playerParametersProvider;
             _playerJumpPresenter = playerJumpPresenter;
             _playerMovementPresenter = playerMovementPresenter;
             _movementDirectionModel = movementDirectionModel;
@@ -67,7 +67,7 @@ namespace Game.Player
             if (shouldJump == false)
                 return;
             
-            _rigidbody.AddForce(Vector3.up * _playerParameters.JumpForce, ForceMode.Impulse);
+            _rigidbody.AddForce(Vector3.up * _playerParametersProvider.PlayerParameters.JumpForce, ForceMode.Impulse);
         }
     }
 }

@@ -4,6 +4,6 @@ namespace Core.Utils
     {
         None = 0,
         Loading = 1,
-        Main = 2,
+        Game = 2,
     }
 }

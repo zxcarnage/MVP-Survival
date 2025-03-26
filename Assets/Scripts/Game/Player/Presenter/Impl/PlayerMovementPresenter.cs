@@ -10,17 +10,17 @@ namespace Game.Player.Presenter.Impl
     public class PlayerMovementPresenter : IPlayerMovementPresenter
     {
         private readonly MovementDirectionModel _movementDirectionModel;
-        private readonly IPlayerParameters _playerParameters;
+        private readonly IPlayerParametersProvider _playerParametersProvider;
         private readonly IInputProvider _inputProvider;
 
         public PlayerMovementPresenter(
             MovementDirectionModel movementDirectionModel,
-            IPlayerParameters playerParameters,
+            IPlayerParametersProvider playerParametersProvider,
             IInputProvider inputProvider
         )
         {
             _movementDirectionModel = movementDirectionModel;
-            _playerParameters = playerParameters;
+            _playerParametersProvider = playerParametersProvider;
             _inputProvider = inputProvider;
         }
         
@@ -32,7 +32,7 @@ namespace Game.Player.Presenter.Impl
 
         private void Move(Vector2 inputDirection)
         {
-            var speed = _playerParameters.Speed;
+            var speed = _playerParametersProvider.PlayerParameters.Speed;
             _movementDirectionModel.Direction = new Vector3(inputDirection.x, 0f, inputDirection.y) * speed * Time.deltaTime;
         }
     }

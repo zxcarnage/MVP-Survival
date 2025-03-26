@@ -1,3 +1,4 @@
+using Db.Player.Impl;
 using Game.Camera.Model;
 using Game.Camera.Presenter.Impl;
 using Game.Collectable;
@@ -5,6 +6,7 @@ using Game.Player;
 using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump.Impl;
 using Game.Player.Presenter.Jump.Model;
+using Game.Services.ChooseCharacter.Impl;
 using Game.Services.Input.Impl;
 using Game.Services.Skill;
 using Zenject;
@@ -16,10 +18,12 @@ namespace Installers
         public override void InstallBindings()
         {
             Container.BindInterfacesAndSelfTo<InputProvider>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerParametersProvider>().AsSingle();
             
             //TODO:SERVICES
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<SkillService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ChooseCharacterService>().AsSingle();
             
             //TODO:PRESENTERS
             Container.BindInterfacesAndSelfTo<CameraPresenter>().AsSingle();

@@ -13,13 +13,13 @@ namespace Installers
     public class GameSettingsInstaller : ScriptableObjectInstaller
     {
         [SerializeField] private CameraParameters _cameraParameters;
-        [SerializeField] private PlayerParameters _playerParameters;
+        [SerializeField] private CharactersParameters _charactersParameters;
         [SerializeField] private CollectableParameters _collectableParameters;
         
         public override void InstallBindings()
         {
             Container.Bind<ICameraParameters>().FromInstance(_cameraParameters).AsSingle();
-            Container.Bind<IPlayerParameters>().FromInstance(_playerParameters).AsSingle();
+            Container.Bind<ICharactersParameters>().FromInstance(_charactersParameters).AsSingle();
             Container.Bind<ICollectableParameters>().FromInstance(_collectableParameters).AsSingle();
         }
     }
