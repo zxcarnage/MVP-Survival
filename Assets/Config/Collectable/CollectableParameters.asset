@@ -71,3 +71,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  <Watermelon>k__BackingField:
+    Saturation: 3
+    Thirst: 10
+  <Berry>k__BackingField:
+    Saturation: 2
+    Thirst: 2
+  <Coconut>k__BackingField:
+    Saturation: 5
+    Thirst: 5
+  <Meet>k__BackingField:
+    Saturation: 22
+    Thirst: -4

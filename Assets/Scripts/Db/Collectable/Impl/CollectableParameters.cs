@@ -14,5 +14,10 @@ namespace Db.Collectable.Impl
         private Dictionary<ECollectableType, float> _collectTime;
         
         public IReadOnlyDictionary<ECollectableType, float> CollectTime => _collectTime;
+        
+        [field: SerializeField] public CollectibleVO Watermelon { get; private set; }
+        [field: SerializeField] public CollectibleVO Berry { get; private set; }
+        [field: SerializeField] public CollectibleVO Coconut { get; private set; }
+        [field: SerializeField] public CollectibleVO Meet { get; private set; }
     }
 }

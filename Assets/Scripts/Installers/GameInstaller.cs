@@ -7,6 +7,7 @@ using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump.Impl;
 using Game.Player.Presenter.Jump.Model;
 using Game.Services.Input.Impl;
+using Game.Services.Inventory.Impl;
 using Game.Services.Needs.Impl;
 using Game.Services.Skill;
 using Game.Utils;
@@ -24,6 +25,7 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<InputService>().AsSingle();
             Container.BindInterfacesAndSelfTo<SkillService>().AsSingle();
             Container.BindInterfacesAndSelfTo<NeedService>().AsSingle();
+            Container.BindInterfacesAndSelfTo<InventoryService>().AsSingle();
             
             //TODO:PRESENTERS
             Container.BindInterfacesAndSelfTo<CameraPresenter>().AsSingle();
