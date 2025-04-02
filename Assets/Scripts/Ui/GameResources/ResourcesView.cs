@@ -1,6 +1,7 @@
 using System;
 using Game.Collectable;
 using Game.Player;
+using Game.Player.Models;
 using TMPro;
 using UniRx;
 using UnityEngine;

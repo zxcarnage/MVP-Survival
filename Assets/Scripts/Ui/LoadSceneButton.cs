@@ -1,12 +1,16 @@
 using Core.Utils;
 using Game.Services.SceneLoading;
+using Ui.MainMenu;
 using UniRx;
+using UnityEngine;
 using Zenject;
 
-namespace Ui.MainMenu.Impl
+namespace Ui
 {
-    public class PlayButton : AButton
+    public class LoadSceneButton : AButton
     {
+        [SerializeField] private EGameSceneType _sceneType;
+        
         private ISceneLoadingManager _sceneLoadingManager;
 
         [Inject]
@@ -17,7 +21,7 @@ namespace Ui.MainMenu.Impl
         
         protected override void OnAction(Unit unit)
         {
-            _sceneLoadingManager.LoadScene(EGameSceneType.CharacterChoose);
+            _sceneLoadingManager.LoadScene(_sceneType);
         }
     }
 }

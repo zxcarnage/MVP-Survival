@@ -1,5 +1,6 @@
 using Db.Player;
 using Extensions.UniRX;
+using Game.Providers;
 using Game.Services.Input;
 using UniRx;
 using UnityEngine;
@@ -15,12 +16,12 @@ namespace Game.Player.Presenter.Impl
 
         public PlayerMovementPresenter(
             MovementDirectionModel movementDirectionModel,
-            IPlayerParameters playerParameters,
+            IPlayerParametersProvider playerParametersProvider,
             IInputProvider inputProvider
         )
         {
             _movementDirectionModel = movementDirectionModel;
-            _playerParameters = playerParameters;
+            _playerParameters = playerParametersProvider.PlayerParameters;
             _inputProvider = inputProvider;
         }
         

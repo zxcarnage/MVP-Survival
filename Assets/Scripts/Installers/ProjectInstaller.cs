@@ -1,3 +1,4 @@
+using Game.Providers.Impl;
 using Game.Services.SceneLoading.Impl;
 using UnityEngine;
 using Zenject;
@@ -11,6 +12,7 @@ namespace Installers
             Application.targetFrameRate = 60;
 
             Container.BindInterfacesAndSelfTo<SceneLoadingManager>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerParametersProvider>().AsSingle();
         }
     }
 }

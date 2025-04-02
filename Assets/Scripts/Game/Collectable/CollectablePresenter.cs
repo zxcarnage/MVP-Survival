@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using Db.Collectable;
 using Game.Player;
+using Game.Player.Models;
 using Game.Services.Input;
 using UnityEngine;
 using Object = UnityEngine.Object;

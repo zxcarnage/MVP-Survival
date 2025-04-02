@@ -1,5 +1,6 @@
 using Db.Player;
 using DG.Tweening;
+using Game.Providers;
 using Game.Services.Needs;
 
 namespace Game.Player.Presenter.Impl
@@ -7,22 +8,23 @@ namespace Game.Player.Presenter.Impl
     public class PlayerNeedPresenter : IPlayerNeedPresenter
     {
         private readonly INeedService _needService;
-        private readonly IPlayerParameters _playerParameters;
+        private readonly IPlayerParametersProvider _playerParametersProvider;
 
         private Tween _needTween;
 
         public PlayerNeedPresenter(
             INeedService needService,
-            IPlayerParameters playerParameters
+            IPlayerParametersProvider playerParametersProvider
         )
         {
             _needService = needService;
-            _playerParameters = playerParameters;
+            _playerParametersProvider = playerParametersProvider;
         }
 
         public void Start()
         {
-            _needTween = DOVirtual.DelayedCall(_playerParameters.NeedDecreaseDelay,DecreaseNeeds, false).SetLoops(-1);
+            var playerParameters = _playerParametersProvider.PlayerParameters;
+            _needTween = DOVirtual.DelayedCall(playerParameters.NeedDecreaseDelay,DecreaseNeeds, false).SetLoops(-1);
         }
 
         private void DecreaseNeeds()

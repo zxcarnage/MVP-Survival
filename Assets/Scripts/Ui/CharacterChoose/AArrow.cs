@@ -1,5 +1,6 @@
 using Db.CharacterChoose;
 using Db.Player.Impl;
+using Game.Providers;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -21,11 +22,16 @@ namespace Ui.CharacterChoose
         protected abstract RenderTexture TargetRenderTexture { get; }
 
         private Button _arrowButton;
+        private IPlayerParametersProvider _playerParametersProvider;
 
         [Inject]
-        private void Construct(ICharacterChooseParameters characterChooseParameters)
+        private void Construct(
+            ICharacterChooseParameters characterChooseParameters,
+            IPlayerParametersProvider playerParametersProvider
+        )
         {
             CharacterChooseParameters = characterChooseParameters;
+            _playerParametersProvider = playerParametersProvider;
         }
 
         private void Start()
@@ -34,14 +40,14 @@ namespace Ui.CharacterChoose
             _arrowButton.OnClickAsObservable().Subscribe(ChangeStats).AddTo(this);
         }
 
-        private void ChangeStats(Unit unit)
+        public void ChangeStats(Unit unit)
         {
             _targetImage.texture = TargetRenderTexture;
-            _hpText.text = _playerParameters.Health.ToString();
-            _waterText.text = _playerParameters.Water.ToString();
-            _hungerText.text = _playerParameters.Hunger.ToString();
-            _luckText.text = _playerParameters.Luck.ToString();
-            //TODO: PROVIDER REPLACE
+            _hpText.text = $"HP: {_playerParameters.Health}";
+            _waterText.text = $"Water: {_playerParameters.Water}";
+            _hungerText.text = $"Hunger: {_playerParameters.Hunger}";
+            _luckText.text = $"Luck: {_playerParameters.Luck}";
+            _playerParametersProvider.ChangeParameters(_playerParameters);
         }
     }
 }

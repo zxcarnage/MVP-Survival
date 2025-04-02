@@ -1,6 +1,6 @@
 using UniRx;
 
-namespace Game.Player
+namespace Game.Player.Models
 {
     public class SkillPointsModel
     {
