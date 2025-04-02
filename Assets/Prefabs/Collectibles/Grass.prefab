@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7431701754194675252}
   - component: {fileID: 3972238282316422035}
+  - component: {fileID: 7825105987701633464}
   m_Layer: 6
   m_Name: Grass
   m_TagString: Untagged
@@ -46,6 +47,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <ECollectableType>k__BackingField: 2
+--- !u!65 &7825105987701633464
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3512662103220788288}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.9756986, y: 0.66793305, z: 1.3674865}
+  m_Center: {x: -0.0034075975, y: 0.25578076, z: 0.049872756}
 --- !u!1001 &1466637645823190514
 PrefabInstance:
   m_ObjectHideFlags: 0

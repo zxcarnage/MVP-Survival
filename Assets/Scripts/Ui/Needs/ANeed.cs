@@ -8,8 +8,7 @@ namespace Ui.Needs
 {
     public abstract class ANeed : MonoBehaviour
     {
-        [SerializeField] private TMP_Text _needValue;
-        [FormerlySerializedAs("_needSlider")] 
+        [SerializeField] protected TMP_Text NeedValue;
         [SerializeField] protected Slider NeedSlider;
 
         [SerializeField] private float _moveSpeed;
@@ -17,7 +16,7 @@ namespace Ui.Needs
         protected void UpdateView(int newValue)
         {
             NeedSlider.DOValue(newValue, _moveSpeed).SetEase(Ease.Linear);
-            _needValue.text = newValue.ToString();
+            NeedValue.text = newValue.ToString();
         }
     }
 }

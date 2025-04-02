@@ -9,6 +9,7 @@ using Game.Player.Presenter.Jump.Model;
 using Game.Services.Input.Impl;
 using Game.Services.Needs.Impl;
 using Game.Services.Skill;
+using Game.Utils;
 using Zenject;
 
 namespace Installers
@@ -45,6 +46,7 @@ namespace Installers
             Container.Bind<LuckModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
+            Container.Bind<NeedsInit>().AsSingle();
         }
     }
 }

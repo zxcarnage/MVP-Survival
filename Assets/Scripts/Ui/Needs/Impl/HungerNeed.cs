@@ -1,5 +1,3 @@
-using System;
-using Game.Player;
 using Game.Player.Models;
 using Game.Providers;
 using UniRx;
@@ -9,23 +7,18 @@ namespace Ui.Needs.Impl
 {
     public class HungerNeed : ANeed
     {
-        private HungerModel _hungerModel;
-        private IPlayerParametersProvider _playerParametersProvider;
-
         [Inject]
         public void Construct(
-            HungerModel hungerModel,
-            IPlayerParametersProvider playerParametersProvider
+            HungerModel hungerModel
         )
         {
-            _hungerModel = hungerModel;
-            _playerParametersProvider = playerParametersProvider;
-            _hungerModel.Value.Subscribe(UpdateView).AddTo(this);
+            hungerModel.Value.Subscribe(UpdateView).AddTo(this);
+            hungerModel.MaxValue.Subscribe(UpdateMax).AddTo(this);
         }
 
-        private void Start()
+        private void UpdateMax(int newValue)
         {
-            NeedSlider.maxValue = _playerParametersProvider.PlayerParameters.Hunger;
+            NeedSlider.maxValue = newValue;
         }
     }
 }

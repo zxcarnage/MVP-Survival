@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f04d9607ecc8483a9c8b18c5db033342, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _needValue: {fileID: 9063753276848069619}
-  _needSlider: {fileID: 4171503899738084457}
+  NeedValue: {fileID: 9063753276848069619}
+  NeedSlider: {fileID: 4171503899738084457}
   _moveSpeed: 3
 --- !u!1 &5477091065944831234
 GameObject:

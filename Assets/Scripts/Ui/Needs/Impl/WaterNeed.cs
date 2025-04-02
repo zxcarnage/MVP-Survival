@@ -1,4 +1,3 @@
-using Game.Player;
 using Game.Player.Models;
 using Game.Providers;
 using UniRx;
@@ -8,23 +7,18 @@ namespace Ui.Needs.Impl
 {
     public class WaterNeed : ANeed
     {
-        private WaterModel _waterModel;
-        private IPlayerParametersProvider _playerParametersProvider;
-
         [Inject]
         public void Construct(
-            WaterModel waterModel,
-            IPlayerParametersProvider playerParametersProvider
+            WaterModel waterModel
         )
         {
-            _waterModel = waterModel;
-            _playerParametersProvider = playerParametersProvider;
-            _waterModel.Value.Subscribe(UpdateView).AddTo(this);
+            waterModel.Value.Subscribe(UpdateView).AddTo(this);
+            waterModel.MaxValue.Subscribe(UpdateMax).AddTo(this);
         }
         
-        private void Start()
+        private void UpdateMax(int newValue)
         {
-            NeedSlider.maxValue = _playerParametersProvider.PlayerParameters.Water;
+            NeedSlider.maxValue = newValue;
         }
     }
 }
