@@ -7,8 +7,8 @@ namespace Game.Services.SceneLoading.Impl
 {
     public class SceneLoadingManager : ISceneLoadingManager
     {
-        private const EGameSceneType START_SCENE = EGameSceneType.Game;
-        private const EGameSceneType LOADING_SCENE = EGameSceneType.Loading;
+        private const EGameSceneType START_SCENE = EGameSceneType.Main;
+        private const EGameSceneType LOADING_SCENE = EGameSceneType.Main;
         
         private readonly IScenesBase _scenesBase;
 

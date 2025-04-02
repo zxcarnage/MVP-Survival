@@ -9,16 +9,19 @@ namespace Game.Player.Presenter.Jump.Impl
 {
     public class PlayerJumpPresenter : IPlayerJumpPresenter
     {
+        private readonly IPlayerParameters _playerParameters;
         private readonly IInputProvider _inputProvider;
         private readonly GroundedModule _groundedModule;
         private readonly JumpModel _jumpModel;
 
         public PlayerJumpPresenter(
+            IPlayerParameters playerParameters,
             IInputProvider inputProvider,
             GroundedModule groundedModule,
             JumpModel jumpModel
         )
         {
+            _playerParameters = playerParameters;
             _inputProvider = inputProvider;
             _groundedModule = groundedModule;
             _jumpModel = jumpModel;
