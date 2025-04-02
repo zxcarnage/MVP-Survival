@@ -1,5 +1,6 @@
 using System;
 using Game.Player;
+using Game.Player.Models;
 using UnityEngine;
 
 namespace Game.Services.Needs.Impl

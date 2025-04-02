@@ -1,4 +1,5 @@
-using Game.Player;
+using Game.Player.Models;
+using Game.Providers;
 using UniRx;
 using Zenject;
 
@@ -6,15 +7,18 @@ namespace Ui.Needs.Impl
 {
     public class HungerNeed : ANeed
     {
-        private HungerModel _hungerModel;
-
         [Inject]
         public void Construct(
             HungerModel hungerModel
         )
         {
-            _hungerModel = hungerModel;
-            _hungerModel.Value.Subscribe(UpdateView).AddTo(this);
+            hungerModel.Value.Subscribe(UpdateView).AddTo(this);
+            hungerModel.MaxValue.Subscribe(UpdateMax).AddTo(this);
+        }
+
+        private void UpdateMax(int newValue)
+        {
+            NeedSlider.maxValue = newValue;
         }
     }
 }

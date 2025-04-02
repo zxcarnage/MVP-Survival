@@ -16,7 +16,9 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 102900000, guid: 99c9720ab356a0642a771bea13969a05, type: 3}
+    - {fileID: 102900000, guid: d22ba984e76959d449d41628f760218f, type: 3}
+    - {fileID: 102900000, guid: 093a6efe1fccda44f823525b82b768b5, type: 3}
+    - {fileID: 102900000, guid: 9c63f33617853404eb84883617221486, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -41,7 +43,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: 
@@ -54,6 +56,48 @@ MonoBehaviour:
     - Name: _sceneAsset
       Entry: 10
       Data: 0
+    - Name: _sceneName
+      Entry: 1
+      Data: MainMenu
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 2
+    - Name: $v
+      Entry: 7
+      Data: 3|Core.Utils.ScenesRef, Assembly-CSharp
+    - Name: _sceneAsset
+      Entry: 10
+      Data: 1
+    - Name: _sceneName
+      Entry: 1
+      Data: CharacterChoose
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 3
+      Data: 3
+    - Name: $v
+      Entry: 7
+      Data: 4|Core.Utils.ScenesRef, Assembly-CSharp
+    - Name: _sceneAsset
+      Entry: 10
+      Data: 2
     - Name: _sceneName
       Entry: 1
       Data: Game

@@ -4,6 +4,7 @@ using Game.Collectable;
 using Game.Player.Presenter;
 using Game.Player.Presenter.Jump;
 using Game.Player.Presenter.Jump.Model;
+using Game.Providers;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -31,12 +32,12 @@ namespace Game.Player
             IPlayerJumpPresenter playerJumpPresenter,
             IPlayerMovementPresenter playerMovementPresenter,
             ICollectablePresenter collectablePresenter,
-            IPlayerParameters playerParameters,
+            IPlayerParametersProvider playerParametersProvider,
             IPlayerNeedPresenter playerNeedPresenter
         )
         {
             _jumpModel = jumpModel;
-            _playerParameters = playerParameters;
+            _playerParameters = playerParametersProvider.PlayerParameters;
             _playerJumpPresenter = playerJumpPresenter;
             _playerMovementPresenter = playerMovementPresenter;
             _movementDirectionModel = movementDirectionModel;

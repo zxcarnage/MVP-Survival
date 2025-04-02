@@ -1,3 +1,4 @@
+using Core.Utils;
 using Game.Services.SceneLoading;
 using Zenject;
 
@@ -21,7 +22,7 @@ namespace Splash
 
         private void LoadGame()
         {
-            _sceneLoadingManager.LoadGameFromSplash();
+            _sceneLoadingManager.LoadScene(EGameSceneType.MainMenu);
         }
     }
 }

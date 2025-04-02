@@ -2,12 +2,14 @@ using Game.Camera.Model;
 using Game.Camera.Presenter.Impl;
 using Game.Collectable;
 using Game.Player;
+using Game.Player.Models;
 using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump.Impl;
 using Game.Player.Presenter.Jump.Model;
 using Game.Services.Input.Impl;
 using Game.Services.Needs.Impl;
 using Game.Services.Skill;
+using Game.Utils;
 using Zenject;
 
 namespace Installers
@@ -40,8 +42,11 @@ namespace Installers
             Container.Bind<SkillPointsModel>().AsSingle();
             Container.Bind<WaterModel>().AsSingle();
             Container.Bind<HungerModel>().AsSingle();
+            Container.Bind<HealthModel>().AsSingle();
+            Container.Bind<LuckModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
+            Container.Bind<NeedsInit>().AsSingle();
         }
     }
 }
