@@ -22,6 +22,7 @@ namespace Game.Player
         private ICollectablePresenter _collectablePresenter;
 
         private Transform _transform;
+        private IPlayerNeedPresenter _playerNeedPresenter;
 
         [Inject]
         public void Construct(
@@ -30,7 +31,8 @@ namespace Game.Player
             IPlayerJumpPresenter playerJumpPresenter,
             IPlayerMovementPresenter playerMovementPresenter,
             ICollectablePresenter collectablePresenter,
-            IPlayerParameters playerParameters
+            IPlayerParameters playerParameters,
+            IPlayerNeedPresenter playerNeedPresenter
         )
         {
             _jumpModel = jumpModel;
@@ -39,6 +41,7 @@ namespace Game.Player
             _playerMovementPresenter = playerMovementPresenter;
             _movementDirectionModel = movementDirectionModel;
             _collectablePresenter = collectablePresenter;
+            _playerNeedPresenter = playerNeedPresenter;
         }
 
         private void Start()
@@ -47,6 +50,7 @@ namespace Game.Player
             _playerJumpPresenter.Initialize();
             _collectablePresenter.Initialize(_transform);
             _jumpModel.ShouldJump.Subscribe(Jump);
+            _playerNeedPresenter.Start();
         }
 
         private void FixedUpdate()
@@ -68,6 +72,11 @@ namespace Game.Player
                 return;
             
             _rigidbody.AddForce(Vector3.up * _playerParameters.JumpForce, ForceMode.Impulse);
+        }
+
+        private void OnDestroy()
+        {
+            _playerNeedPresenter.Exit();
         }
     }
 }

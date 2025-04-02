@@ -7,5 +7,6 @@ namespace Db.Player.Impl
     {
         [field: SerializeField] public float Speed { get; private set; }
         [field: SerializeField] public float JumpForce { get; private set; }
+        [field: SerializeField] public float NeedDecreaseDelay { get; private set; }
     }
 }

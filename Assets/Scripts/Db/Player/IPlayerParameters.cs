@@ -4,5 +4,7 @@ namespace Db.Player
     {
         float Speed { get; }
         float JumpForce { get; }
+
+        float NeedDecreaseDelay { get; }
     }
 }
