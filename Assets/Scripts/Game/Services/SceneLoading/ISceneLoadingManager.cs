@@ -1,7 +1,9 @@
+using Core.Utils;
+
 namespace Game.Services.SceneLoading
 {
     public interface ISceneLoadingManager
     {
-        void LoadGameFromSplash();
+        void LoadScene(EGameSceneType gameSceneType);
     }
 }

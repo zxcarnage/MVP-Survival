@@ -3,7 +3,8 @@ namespace Core.Utils
     public enum EGameSceneType
     {
         None = 0,
-        Loading = 1,
-        Main = 2,
+        MainMenu = 1,
+        CharacterChoose = 2,
+        Game = 3,
     }
 }

@@ -7,13 +7,7 @@ namespace Game.Services.SceneLoading.Impl
 {
     public class SceneLoadingManager : ISceneLoadingManager
     {
-        private const EGameSceneType START_SCENE = EGameSceneType.Main;
-        private const EGameSceneType LOADING_SCENE = EGameSceneType.Main;
-        
         private readonly IScenesBase _scenesBase;
-
-        private string StartSceneName => _scenesBase.GetSceneNameByType(START_SCENE);
-        private string LoadingSceneName => _scenesBase.GetSceneNameByType(LOADING_SCENE);
 
         public SceneLoadingManager(
             IScenesBase scenesBase
@@ -22,15 +16,10 @@ namespace Game.Services.SceneLoading.Impl
             _scenesBase = scenesBase;
         }
         
-        public void LoadGameFromSplash()
+        public void LoadScene(EGameSceneType gameSceneType)
         {
-            LoadWithSceneBetween(LoadingSceneName, StartSceneName).Forget();
-        }
-
-        private static async UniTaskVoid LoadWithSceneBetween(string loadingScene, string sceneToLoad)
-        {
-            SceneManager.LoadSceneAsync(loadingScene);
-            await SceneManager.LoadSceneAsync(sceneToLoad).ToUniTask();
+            var targetScene = _scenesBase.GetSceneNameByType(gameSceneType);
+            SceneManager.LoadSceneAsync(targetScene);
         }
     }
 }

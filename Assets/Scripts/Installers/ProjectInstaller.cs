@@ -1,4 +1,3 @@
-using Db.Installers;
 using Game.Services.SceneLoading.Impl;
 using UnityEngine;
 using Zenject;
