@@ -68,9 +68,9 @@ namespace Game.Collectable
 
         private void TryCollectAdditional(ECollectableType type)
         {
-            var maxBonus = 5f;
-            var sigmoid = maxBonus / (1 + Mathf.Exp(-10f * (_luckModel.Value.Value - 0.5f)));
-            int additionalResources = Mathf.RoundToInt(sigmoid);
+            var maxBonus = 10f;
+            var sigmoid = maxBonus / (1 + Mathf.Exp(-20f * (_luckModel.Value.Value - 0.5f)));
+            int additionalResources = 1 + Mathf.RoundToInt(sigmoid);
             switch (type)
             {
                 case ECollectableType.Grass:
@@ -78,6 +78,9 @@ namespace Game.Collectable
                     break;
                 case ECollectableType.Wood:
                     _inventoryModel.Inventory[ECollectableType.Coconut]+= additionalResources;
+                    break;
+                case ECollectableType.Watermelon:
+                    _inventoryModel.Inventory[ECollectableType.Watermelon]+= additionalResources;
                     break;
 
             }
