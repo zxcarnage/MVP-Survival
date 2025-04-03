@@ -27,6 +27,10 @@ namespace Game.Services.Inventory.Impl
 
         public void ActivateCollectable(ECollectableType collectableType)
         {
+            if (_inventoryModel.Inventory[collectableType] == 0)
+                return;
+
+            _inventoryModel.Consume(collectableType);
             var targetSaturation = 0;
             var targetThirstIncrease = 0;
             switch (collectableType)
@@ -45,8 +49,8 @@ namespace Game.Services.Inventory.Impl
                     break;
             }
 
-            _hungerModel.Value.Value += targetSaturation;
-            _waterModel.Value.Value += targetThirstIncrease;
+            _hungerModel.IncreaseValue(targetSaturation);
+            _waterModel.IncreaseValue(targetThirstIncrease);
 
             return;
 

@@ -1,7 +1,4 @@
-using System;
-using Game.Player;
 using Game.Player.Models;
-using UnityEngine;
 
 namespace Game.Services.Needs.Impl
 {
@@ -24,10 +21,10 @@ namespace Game.Services.Needs.Impl
             switch (type)
             {
                 case ENeedType.Water:
-                    _waterModel.Value.Value = Mathf.Clamp(_waterModel.Value.Value - value, 0, 100);
+                    _waterModel.DecreaseValue(value);
                     break;
                 case ENeedType.Hunger:
-                    _hungerModel.Value.Value = Mathf.Clamp(_hungerModel.Value.Value - value, 0, 100);
+                    _hungerModel.DecreaseValue(value);
                     break;
             }
         }
@@ -37,10 +34,10 @@ namespace Game.Services.Needs.Impl
             switch (type)
             {
                 case ENeedType.Water:
-                    _waterModel.Value.Value = Mathf.Clamp(_waterModel.Value.Value + value, 0, 100);
+                    _waterModel.IncreaseValue(value);
                     break;
                 case ENeedType.Hunger:
-                    _hungerModel.Value.Value = Mathf.Clamp(_hungerModel.Value.Value + value, 0, 100);
+                    _hungerModel.IncreaseValue(value);
                     break;
             }
         }

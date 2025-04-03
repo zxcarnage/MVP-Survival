@@ -1,5 +1,6 @@
 using Game.Providers;
 using UniRx;
+using UnityEngine;
 
 namespace Game.Player.Models
 {
@@ -14,6 +15,16 @@ namespace Game.Player.Models
         {
             Value = new ReactiveProperty<int>(playerParametersProvider.PlayerParameters.Water);
             MaxValue = new(playerParametersProvider.PlayerParameters.Water);
+        }
+
+        public void IncreaseValue(int value)
+        {
+            Value.Value = Mathf.Clamp(Value.Value + value, 0, MaxValue.Value);
+        }
+
+        public void DecreaseValue(int value)
+        {
+            Value.Value = Mathf.Clamp(Value.Value - value, 0, MaxValue.Value);
         }
     }
 }

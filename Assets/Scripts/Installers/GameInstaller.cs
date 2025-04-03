@@ -48,7 +48,6 @@ namespace Installers
             Container.Bind<LuckModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
-            Container.Bind<NeedsInit>().AsSingle();
         }
     }
 }

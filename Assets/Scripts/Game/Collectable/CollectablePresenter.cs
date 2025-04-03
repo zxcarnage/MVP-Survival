@@ -1,7 +1,5 @@
-using System;
 using Cysharp.Threading.Tasks;
 using Db.Collectable;
-using Game.Player;
 using Game.Player.Models;
 using Game.Services.Input;
 using UnityEngine;
@@ -14,6 +12,7 @@ namespace Game.Collectable
         private readonly ICollectableParameters _collectableParameters;
         private readonly IInputProvider _inputProvider;
         private readonly InventoryModel _inventoryModel;
+        private readonly LuckModel _luckModel;
         private bool _taskRunning = false;
         private readonly ExperienceModel _experienceModel;
 
@@ -21,6 +20,7 @@ namespace Game.Collectable
             ICollectableParameters collectableParameters,
             IInputProvider inputProvider,
             InventoryModel inventoryModel,
+            LuckModel luckModel,
             ExperienceModel experienceModel
         )
         {
@@ -28,6 +28,7 @@ namespace Game.Collectable
             _collectableParameters = collectableParameters;
             _inputProvider = inputProvider;
             _inventoryModel = inventoryModel;
+            _luckModel = luckModel;
         }
 
         public void Initialize(Transform player)
@@ -62,7 +63,24 @@ namespace Game.Collectable
             _experienceModel.Level.Value++;
             Object.Destroy(other.gameObject);
             _taskRunning = false;
-            Debug.Log($"{_inventoryModel.Inventory[type]}");
+            TryCollectAdditional(type);
+        }
+
+        private void TryCollectAdditional(ECollectableType type)
+        {
+            var maxBonus = 5f;
+            var sigmoid = maxBonus / (1 + Mathf.Exp(-10f * (_luckModel.Value.Value - 0.5f)));
+            int additionalResources = Mathf.RoundToInt(sigmoid);
+            switch (type)
+            {
+                case ECollectableType.Grass:
+                    _inventoryModel.Inventory[ECollectableType.Berry]+= additionalResources;
+                    break;
+                case ECollectableType.Wood:
+                    _inventoryModel.Inventory[ECollectableType.Coconut]+= additionalResources;
+                    break;
+
+            }
         }
     }
 }
