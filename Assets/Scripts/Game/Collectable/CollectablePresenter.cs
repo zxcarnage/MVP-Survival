@@ -68,9 +68,13 @@ namespace Game.Collectable
 
         private void TryCollectAdditional(ECollectableType type)
         {
+            var basicAmountPercent = Random.Range(0, 1f);
+            var basicAmount = Mathf.RoundToInt(basicAmountPercent);
             var maxBonus = 10f;
-            var sigmoid = maxBonus / (1 + Mathf.Exp(-20f * (_luckModel.Value.Value - 0.5f)));
-            int additionalResources = 1 + Mathf.RoundToInt(sigmoid);
+            var sigmoid = maxBonus / (basicAmount + Mathf.Exp(-20f * (_luckModel.Value.Value - 0.5f)));
+            int additionalResources = basicAmount + Mathf.RoundToInt(sigmoid);
+            
+            Debug.Log($"Additional {additionalResources}");
             switch (type)
             {
                 case ECollectableType.Grass:

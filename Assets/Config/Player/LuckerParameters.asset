@@ -15,7 +15,7 @@ MonoBehaviour:
   <Health>k__BackingField: 80
   <Water>k__BackingField: 70
   <Hunger>k__BackingField: 80
-  <Luck>k__BackingField: 0.12
+  <Luck>k__BackingField: 0.4
   <Speed>k__BackingField: 100
   <JumpForce>k__BackingField: 6
-  <NeedDecreaseDelay>k__BackingField: 5
+  <NeedDecreaseDelay>k__BackingField: 2
