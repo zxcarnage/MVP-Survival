@@ -46,6 +46,8 @@ namespace Installers
             Container.Bind<HungerModel>().AsSingle();
             Container.Bind<HealthModel>().AsSingle();
             Container.Bind<LuckModel>().AsSingle();
+            Container.Bind<MetabolismModel>().AsSingle();
+            Container.Bind<DrinkerModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
         }

@@ -6,8 +6,8 @@ namespace Game.Player.Models
 {
     public class HungerModel
     {
-        public ReactiveProperty<int> Value { get; }
-        public ReactiveProperty<int> MaxValue { get; }
+        public ReactiveProperty<float> Value { get; }
+        public ReactiveProperty<float> MaxValue { get; }
 
         public HungerModel(
             IPlayerParametersProvider playerParametersProvider
@@ -17,12 +17,12 @@ namespace Game.Player.Models
             MaxValue = new(playerParametersProvider.PlayerParameters.Hunger);
         }
         
-        public void IncreaseValue(int value)
+        public void IncreaseValue(float value)
         {
             Value.Value = Mathf.Clamp(Value.Value + value, 0, MaxValue.Value);
         }
 
-        public void DecreaseValue(int value)
+        public void DecreaseValue(float value)
         {
             Value.Value = Mathf.Clamp(Value.Value - value, 0, MaxValue.Value);
         }

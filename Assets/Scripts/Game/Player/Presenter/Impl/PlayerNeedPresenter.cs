@@ -1,7 +1,9 @@
 using Db.Player;
 using DG.Tweening;
+using Game.Player.Models;
 using Game.Providers;
 using Game.Services.Needs;
+using UnityEngine;
 
 namespace Game.Player.Presenter.Impl
 {
@@ -9,16 +11,22 @@ namespace Game.Player.Presenter.Impl
     {
         private readonly INeedService _needService;
         private readonly IPlayerParametersProvider _playerParametersProvider;
+        private readonly DrinkerModel _drinkerModel;
+        private readonly MetabolismModel _metabolismModel;
 
         private Tween _needTween;
 
         public PlayerNeedPresenter(
             INeedService needService,
-            IPlayerParametersProvider playerParametersProvider
+            IPlayerParametersProvider playerParametersProvider,
+            DrinkerModel drinkerModel,
+            MetabolismModel metabolismModel
         )
         {
             _needService = needService;
             _playerParametersProvider = playerParametersProvider;
+            _drinkerModel = drinkerModel;
+            _metabolismModel = metabolismModel;
         }
 
         public void Start()
@@ -29,8 +37,11 @@ namespace Game.Player.Presenter.Impl
 
         private void DecreaseNeeds()
         {
-            _needService.DecreaseNeed(1, ENeedType.Water);
-            _needService.DecreaseNeed(1, ENeedType.Hunger);
+            Debug.Log($"DecreaseNeeds {_metabolismModel.SkillLevel.Value} \n {_drinkerModel.Level.Value}");
+            var decreaseHungerValue = 5 - 0.3f * (_metabolismModel.SkillLevel.Value - 1);
+            var decreaseWaterValue = 5 - 0.2f * (_drinkerModel.Level.Value - 1);
+            _needService.DecreaseNeed(decreaseWaterValue, ENeedType.Water);
+            _needService.DecreaseNeed(decreaseHungerValue, ENeedType.Hunger);
         }
 
         public void Exit()

@@ -18,4 +18,4 @@ MonoBehaviour:
   <Luck>k__BackingField: 0.4
   <Speed>k__BackingField: 100
   <JumpForce>k__BackingField: 6
-  <NeedDecreaseDelay>k__BackingField: 2
+  <NeedDecreaseDelay>k__BackingField: 5

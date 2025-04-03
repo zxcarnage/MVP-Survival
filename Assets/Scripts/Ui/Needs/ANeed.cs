@@ -1,3 +1,4 @@
+using System.Globalization;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -13,10 +14,16 @@ namespace Ui.Needs
 
         [SerializeField] private float _moveSpeed;
 
+        protected void UpdateView(float newValue)
+        {
+            NeedSlider.DOValue(newValue, _moveSpeed).SetEase(Ease.Linear);
+            NeedValue.text = newValue.ToString(CultureInfo.InvariantCulture);
+        }
+        
         protected void UpdateView(int newValue)
         {
             NeedSlider.DOValue(newValue, _moveSpeed).SetEase(Ease.Linear);
-            NeedValue.text = newValue.ToString();
+            NeedValue.text = newValue.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

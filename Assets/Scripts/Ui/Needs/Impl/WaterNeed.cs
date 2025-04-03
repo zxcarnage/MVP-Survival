@@ -16,7 +16,7 @@ namespace Ui.Needs.Impl
             waterModel.MaxValue.Subscribe(UpdateMax).AddTo(this);
         }
         
-        private void UpdateMax(int newValue)
+        private void UpdateMax(float newValue)
         {
             NeedSlider.maxValue = newValue;
         }

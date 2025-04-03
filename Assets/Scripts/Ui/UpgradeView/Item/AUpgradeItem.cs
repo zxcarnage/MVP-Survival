@@ -32,9 +32,9 @@ namespace Ui.UpgradeView.Item
         {
             if (_experienceModel.Level.Value - 1 < 0)
                 return;
+            UpdateModel();
             _currentValueText.text = $"Current value: {GetCurrentValue()}";
             _upgradeAmountText.text = $"Upgrade amount: {GetUpgradeAmount()}";
-            UpdateModel();
             _experienceModel.Level.Value -= 1;
         }
 

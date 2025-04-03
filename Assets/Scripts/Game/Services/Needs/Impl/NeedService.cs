@@ -16,7 +16,7 @@ namespace Game.Services.Needs.Impl
             _waterModel = waterModel;
         }
         
-        public void DecreaseNeed(int value, ENeedType type)
+        public void DecreaseNeed(float value, ENeedType type)
         {
             switch (type)
             {
