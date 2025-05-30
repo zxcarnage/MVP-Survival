@@ -25,7 +25,7 @@ namespace Ui.GameResources
         
         private void Awake()
         {
-            _inventoryModel.Inventory.ObserveReplace().Subscribe(UpdateView);
+            _inventoryModel.ConsumableInventory.ObserveReplace().Subscribe(UpdateView);
         }
 
         private void UpdateView(DictionaryReplaceEvent<ECollectableType, int> evt)

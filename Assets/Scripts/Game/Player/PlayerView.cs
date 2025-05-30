@@ -2,6 +2,7 @@ using System;
 using Db.Player;
 using Game.Collectable;
 using Game.Player.Presenter;
+using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump;
 using Game.Player.Presenter.Jump.Model;
 using Game.Providers;
@@ -24,6 +25,7 @@ namespace Game.Player
 
         private Transform _transform;
         private IPlayerNeedPresenter _playerNeedPresenter;
+        private PlayerInputHandler _playerInputHandler;
 
         [Inject]
         public void Construct(
@@ -33,16 +35,28 @@ namespace Game.Player
             IPlayerMovementPresenter playerMovementPresenter,
             ICollectablePresenter collectablePresenter,
             IPlayerParametersProvider playerParametersProvider,
+            PlayerInputHandler playerInputHandler,
             IPlayerNeedPresenter playerNeedPresenter
         )
         {
             _jumpModel = jumpModel;
+            _playerInputHandler = playerInputHandler;
             _playerParameters = playerParametersProvider.PlayerParameters;
             _playerJumpPresenter = playerJumpPresenter;
             _playerMovementPresenter = playerMovementPresenter;
             _movementDirectionModel = movementDirectionModel;
             _collectablePresenter = collectablePresenter;
             _playerNeedPresenter = playerNeedPresenter;
+        }
+
+        private void OnEnable()
+        {
+            _playerInputHandler.Subscribe();
+        }
+
+        private void OnDisable()
+        {
+            _playerInputHandler.Unsubscribe();
         }
 
         private void Start()

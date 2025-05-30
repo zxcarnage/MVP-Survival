@@ -7,7 +7,7 @@ namespace Game.Player.Models
 {
     public class InventoryModel
     {
-        public readonly ReactiveDictionary<ECollectableType, int> Inventory = new();
+        public readonly ReactiveDictionary<ECollectableType, int> ConsumableInventory = new();
 
         public InventoryModel()
         {
@@ -16,13 +16,13 @@ namespace Game.Player.Models
             foreach (var collectable in collectablesToArray)
             {
                 if ((ECollectableType)collectable != ECollectableType.None)
-                    Inventory.Add((ECollectableType)collectable, 0);
+                    ConsumableInventory.Add((ECollectableType)collectable, 0);
             }
         }
 
         public void Consume(ECollectableType consumedType)
         {
-            Inventory[consumedType] = Mathf.Clamp(Inventory[consumedType] - 1, 0, int.MaxValue);
+            ConsumableInventory[consumedType] = Mathf.Clamp(ConsumableInventory[consumedType] - 1, 0, int.MaxValue);
         }
     }
 }

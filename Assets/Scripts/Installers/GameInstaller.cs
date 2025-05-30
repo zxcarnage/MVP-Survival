@@ -30,6 +30,7 @@ namespace Installers
             //TODO:PRESENTERS
             Container.BindInterfacesAndSelfTo<CameraPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerMovementPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<PlayerToolsPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerJumpPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<CollectablePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerNeedPresenter>().AsSingle();
@@ -48,8 +49,10 @@ namespace Installers
             Container.Bind<LuckModel>().AsSingle();
             Container.Bind<MetabolismModel>().AsSingle();
             Container.Bind<DrinkerModel>().AsSingle();
+            Container.Bind<ToolsModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
+            Container.Bind<PlayerInputHandler>().AsSingle();
         }
     }
 }

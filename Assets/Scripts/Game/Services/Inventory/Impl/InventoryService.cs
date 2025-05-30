@@ -27,7 +27,7 @@ namespace Game.Services.Inventory.Impl
 
         public void ActivateCollectable(ECollectableType collectableType)
         {
-            if (_inventoryModel.Inventory[collectableType] == 0)
+            if (_inventoryModel.ConsumableInventory[collectableType] == 0)
                 return;
 
             _inventoryModel.Consume(collectableType);

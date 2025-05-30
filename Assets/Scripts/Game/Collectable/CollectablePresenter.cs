@@ -13,6 +13,7 @@ namespace Game.Collectable
         private readonly IInputProvider _inputProvider;
         private readonly InventoryModel _inventoryModel;
         private readonly LuckModel _luckModel;
+        private readonly ToolsModel _toolsModel;
         private bool _taskRunning = false;
         private readonly ExperienceModel _experienceModel;
 
@@ -21,6 +22,7 @@ namespace Game.Collectable
             IInputProvider inputProvider,
             InventoryModel inventoryModel,
             LuckModel luckModel,
+            ToolsModel toolsModel,
             ExperienceModel experienceModel
         )
         {
@@ -29,6 +31,7 @@ namespace Game.Collectable
             _inputProvider = inputProvider;
             _inventoryModel = inventoryModel;
             _luckModel = luckModel;
+            _toolsModel = toolsModel;
         }
 
         public void Initialize(Transform player)
@@ -40,6 +43,10 @@ namespace Game.Collectable
         {
             if (_taskRunning)
                 return;
+            
+            if (_toolsModel.ActiveTool.Value != EToolType.Sword)
+                return;
+            
             var ray = new Ray(player.position, UnityEngine.Camera.main.transform.forward);
             Debug.Log($"Ray {ray}");
             if (Physics.Raycast(ray, out var other, 40f, 1 << 6) == false)
@@ -59,7 +66,7 @@ namespace Game.Collectable
             _taskRunning = true;
             await UniTask.WaitForSeconds(collectTime);
             
-            _inventoryModel.Inventory[type]++;
+            _inventoryModel.ConsumableInventory[type]++;
             _experienceModel.Level.Value++;
             Object.Destroy(other.gameObject);
             _taskRunning = false;
@@ -78,13 +85,13 @@ namespace Game.Collectable
             switch (type)
             {
                 case ECollectableType.Grass:
-                    _inventoryModel.Inventory[ECollectableType.Berry]+= additionalResources;
+                    _inventoryModel.ConsumableInventory[ECollectableType.Berry]+= additionalResources;
                     break;
                 case ECollectableType.Wood:
-                    _inventoryModel.Inventory[ECollectableType.Coconut]+= additionalResources;
+                    _inventoryModel.ConsumableInventory[ECollectableType.Coconut]+= additionalResources;
                     break;
                 case ECollectableType.Watermelon:
-                    _inventoryModel.Inventory[ECollectableType.Watermelon]+= additionalResources;
+                    _inventoryModel.ConsumableInventory[ECollectableType.Watermelon]+= additionalResources;
                     break;
 
             }
