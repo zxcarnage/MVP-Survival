@@ -11,6 +11,7 @@ using Game.Services.Input.Impl;
 using Game.Services.Inventory.Impl;
 using Game.Services.Needs.Impl;
 using Game.Services.Skill;
+using Game.Ship;
 using Game.Utils;
 using Ui.Quests.Impl;
 using Zenject;
@@ -37,6 +38,7 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<CollectablePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerNeedPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<QuestPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<ShipPresenter>().AsSingle();
             
             //TODO:MODELS
             Container.Bind<CameraRotationModel>().AsSingle();

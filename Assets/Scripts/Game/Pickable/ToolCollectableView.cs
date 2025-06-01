@@ -1,5 +1,3 @@
-using System;
-using Cysharp.Threading.Tasks;
 using Extensions.UniRX;
 using Game.Collectable;
 using Game.Player.Models;
