@@ -9,13 +9,17 @@ namespace Game.Collectable
 {
     public class CollectablePresenter : ICollectablePresenter
     {
+        private const int COLLECTABLE_LAYER = 6;
+        private const float RAYCAST_DISTANCE = 40f;
+        
         private readonly ICollectableParameters _collectableParameters;
         private readonly IInputProvider _inputProvider;
         private readonly InventoryModel _inventoryModel;
         private readonly LuckModel _luckModel;
         private readonly ToolsModel _toolsModel;
-        private bool _taskRunning = false;
         private readonly ExperienceModel _experienceModel;
+        
+        private bool _isCollecting;
 
         public CollectablePresenter(
             ICollectableParameters collectableParameters,
@@ -41,60 +45,105 @@ namespace Game.Collectable
         
         private void TryCollect(Transform player)
         {
-            if (_taskRunning)
+            if (ShouldSkipCollection())
                 return;
             
-            if (_toolsModel.ActiveTool.Value != EToolType.Sword)
-                return;
-            
-            var ray = new Ray(player.position, UnityEngine.Camera.main.transform.forward);
-            Debug.Log($"Ray {ray}");
-            if (Physics.Raycast(ray, out var other, 40f, 1 << 6) == false)
-                return;
-            
-            if (other.collider.TryGetComponent(out ICollectable collectable) == false)
+            var ray = CreateRayFromPlayer(player);
+            if (!TryGetCollectable(ray, out var collectable))
                 return;
 
-            var type = collectable.ECollectableType;
-            
-            var delay = _collectableParameters.CollectTime[type];
-            CollectAsync(type, delay, other.collider).Forget();
+            var collectableType = collectable.ECollectableType;
+            if (!IsCorrectToolForCollectable(collectableType))
+                return;
+
+            StartCollection(collectableType, collectable);
         }
 
-        private async UniTaskVoid CollectAsync(ECollectableType type, float collectTime, Collider other)
+        private bool ShouldSkipCollection()
         {
-            _taskRunning = true;
+            return _isCollecting || _toolsModel.ActiveTool.Value is EToolType.None;
+        }
+
+        private static Ray CreateRayFromPlayer(Transform player)
+        {
+            return new Ray(player.position, UnityEngine.Camera.main!.transform.forward);
+        }
+
+        private bool TryGetCollectable(Ray ray, out ICollectable collectable)
+        {
+            collectable = null;
+            return Physics.Raycast(ray, out var hitInfo, RAYCAST_DISTANCE, 1 << COLLECTABLE_LAYER) 
+                   && hitInfo.collider.TryGetComponent(out collectable);
+        }
+
+        private bool IsCorrectToolForCollectable(ECollectableType collectableType)
+        {
+            var activeTool = _toolsModel.ActiveTool.Value;
+            return (activeTool != EToolType.Pickaxe || collectableType == ECollectableType.Rock) &&
+                   (activeTool != EToolType.Sword || collectableType != ECollectableType.Rock);
+        }
+
+        private void StartCollection(ECollectableType collectableType, ICollectable collectable)
+        {
+            var delay = _collectableParameters.CollectTime[collectableType];
+            CollectAsync(collectableType, delay, collectable).Forget();
+        }
+
+        private async UniTaskVoid CollectAsync(ECollectableType type, float collectTime, ICollectable collectable)
+        {
+            _isCollecting = true;
             await UniTask.WaitForSeconds(collectTime);
             
-            _inventoryModel.ConsumableInventory[type]++;
-            _experienceModel.Level.Value++;
-            Object.Destroy(other.gameObject);
-            _taskRunning = false;
-            TryCollectAdditional(type);
+            ProcessCollection(type, collectable);
+            _isCollecting = false;
+            
+            ProcessAdditionalResources(type);
         }
 
-        private void TryCollectAdditional(ECollectableType type)
+        private void ProcessCollection(ECollectableType type, ICollectable collectable)
         {
-            var basicAmountPercent = Random.Range(0, 1f);
-            var basicAmount = Mathf.RoundToInt(basicAmountPercent);
-            var maxBonus = 10f;
-            var sigmoid = maxBonus / (basicAmount + Mathf.Exp(-20f * (_luckModel.Value.Value - 0.5f)));
-            int additionalResources = basicAmount + Mathf.RoundToInt(sigmoid);
+            _inventoryModel.ConsumableInventory[type]++;
+            _experienceModel.Level.Value++;
             
-            Debug.Log($"Additional {additionalResources}");
-            switch (type)
+            if (collectable is MonoBehaviour behaviour)
             {
-                case ECollectableType.Grass:
-                    _inventoryModel.ConsumableInventory[ECollectableType.Berry]+= additionalResources;
-                    break;
-                case ECollectableType.Wood:
-                    _inventoryModel.ConsumableInventory[ECollectableType.Coconut]+= additionalResources;
-                    break;
-                case ECollectableType.Watermelon:
-                    _inventoryModel.ConsumableInventory[ECollectableType.Watermelon]+= additionalResources;
-                    break;
-
+                Object.Destroy(behaviour.gameObject);
             }
+        }
+
+        private void ProcessAdditionalResources(ECollectableType type)
+        {
+            var additionalAmount = CalculateAdditionalResources();
+            AddAdditionalResources(type, additionalAmount);
+        }
+
+        private int CalculateAdditionalResources()
+        {
+            var baseAmount = Mathf.RoundToInt(Random.Range(0, 1f));
+            const float MAX_BONUS = 10f;
+            var luckFactor = MAX_BONUS / (baseAmount + Mathf.Exp(-20f * (_luckModel.Value.Value - 0.5f)));
+            
+            return baseAmount + Mathf.RoundToInt(luckFactor);
+        }
+
+        private void AddAdditionalResources(ECollectableType type, int amount)
+        {
+            var resourceType = GetAdditionalResourceType(type);
+            if (resourceType != null)
+            {
+                _inventoryModel.ConsumableInventory[resourceType.Value] += amount;
+            }
+        }
+
+        private static ECollectableType? GetAdditionalResourceType(ECollectableType type)
+        {
+            return type switch
+            {
+                ECollectableType.Grass => ECollectableType.Berry,
+                ECollectableType.Wood => ECollectableType.Coconut,
+                ECollectableType.Watermelon => ECollectableType.Watermelon,
+                _ => null
+            };
         }
     }
 }

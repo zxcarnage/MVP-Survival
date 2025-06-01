@@ -6,11 +6,13 @@ using Game.Player.Models;
 using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump.Impl;
 using Game.Player.Presenter.Jump.Model;
+using Game.QuestHandler.Impl;
 using Game.Services.Input.Impl;
 using Game.Services.Inventory.Impl;
 using Game.Services.Needs.Impl;
 using Game.Services.Skill;
 using Game.Utils;
+using Ui.Quests.Impl;
 using Zenject;
 
 namespace Installers
@@ -34,6 +36,7 @@ namespace Installers
             Container.BindInterfacesAndSelfTo<PlayerJumpPresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<CollectablePresenter>().AsSingle();
             Container.BindInterfacesAndSelfTo<PlayerNeedPresenter>().AsSingle();
+            Container.BindInterfacesAndSelfTo<QuestPresenter>().AsSingle();
             
             //TODO:MODELS
             Container.Bind<CameraRotationModel>().AsSingle();
@@ -50,9 +53,11 @@ namespace Installers
             Container.Bind<MetabolismModel>().AsSingle();
             Container.Bind<DrinkerModel>().AsSingle();
             Container.Bind<ToolsModel>().AsSingle();
+            Container.BindInterfacesAndSelfTo<QuestModel>().AsSingle();
             
             Container.Bind<InputSystem>().AsSingle();
             Container.Bind<PlayerInputHandler>().AsSingle();
+            Container.BindInterfacesAndSelfTo<QuestHandler>().AsSingle();
         }
     }
 }

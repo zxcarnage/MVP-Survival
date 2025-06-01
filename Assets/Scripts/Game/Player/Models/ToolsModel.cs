@@ -19,7 +19,7 @@ namespace Game.Player.Models
         
         public void TryChangeActiveTool()
         {
-            if (_toolsUnlocked.Count != 1) 
+            if (_toolsUnlocked.Count >= 1) 
                 ActiveTool.Value = NextListTool();
         }
 

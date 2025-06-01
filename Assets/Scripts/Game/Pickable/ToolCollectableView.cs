@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using Extensions.UniRX;
 using Game.Collectable;
 using Game.Player.Models;
+using Game.QuestHandler;
 using Game.Services.Input;
 using UniRx;
 using UniRx.Triggers;
@@ -20,13 +21,16 @@ namespace Game.Pickable
         private bool _canCollect;
         private readonly CompositeDisposable _disposable = new();
         private ToolsModel _toolsModel;
+        private IQuestHandler _questHandler;
 
         [Inject]
         public void Construct(
             IInputProvider inputProvider,
-            ToolsModel toolsModel
+            ToolsModel toolsModel,
+            IQuestHandler questHandler
         )
         {
+            _questHandler = questHandler;
             _toolsModel = toolsModel;
             _inputProvider = inputProvider;
         }
@@ -40,8 +44,20 @@ namespace Game.Pickable
 
         private void TryCollect()
         {
-            if(_canCollect)
-                _toolsModel.Unlock(_toolType);
+            if (!_canCollect) 
+                return;
+            
+            switch (_toolType)
+            {
+                case EToolType.Sword:
+                    _questHandler.SwordQuestCompleted.Execute(true);
+                    break;
+                case EToolType.Pickaxe:
+                    _questHandler.PickaxeQuestCompleted.Execute(true);
+                    break;
+            }
+            _toolsModel.Unlock(_toolType);
+            gameObject.SetActive(false);
         }
 
         private void OnDisable()

@@ -9,5 +9,6 @@ namespace Game.Collectable
         Berry = 4,
         Coconut = 5,
         Meet = 6,
+        Rock = 7,
     }
 }

@@ -4,6 +4,8 @@ using Db.Collectable;
 using Db.Collectable.Impl;
 using Db.Player;
 using Db.Player.Impl;
+using Db.Quest;
+using Db.Quest.Impl;
 using UnityEngine;
 using Zenject;
 
@@ -15,12 +17,14 @@ namespace Installers
         [SerializeField] private CameraParameters _cameraParameters;
         [SerializeField] private PlayerParameters _playerParameters;
         [SerializeField] private CollectableParameters _collectableParameters;
+        [SerializeField] private QuestParameters _questParameters;
         
         public override void InstallBindings()
         {
             Container.Bind<ICameraParameters>().FromInstance(_cameraParameters).AsSingle();
             Container.Bind<IPlayerParameters>().FromInstance(_playerParameters).AsSingle();
             Container.Bind<ICollectableParameters>().FromInstance(_collectableParameters).AsSingle();
+            Container.Bind<IQuestParameters>().FromInstance(_questParameters).AsSingle();
         }
     }
 }

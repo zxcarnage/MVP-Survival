@@ -6,6 +6,7 @@ using Game.Player.Presenter.Impl;
 using Game.Player.Presenter.Jump;
 using Game.Player.Presenter.Jump.Model;
 using Game.Providers;
+using Game.QuestHandler;
 using UniRx;
 using UnityEngine;
 using Zenject;
@@ -26,6 +27,7 @@ namespace Game.Player
         private Transform _transform;
         private IPlayerNeedPresenter _playerNeedPresenter;
         private PlayerInputHandler _playerInputHandler;
+        private IQuestHandler _questHandler;
 
         [Inject]
         public void Construct(
@@ -36,9 +38,11 @@ namespace Game.Player
             ICollectablePresenter collectablePresenter,
             IPlayerParametersProvider playerParametersProvider,
             PlayerInputHandler playerInputHandler,
-            IPlayerNeedPresenter playerNeedPresenter
+            IPlayerNeedPresenter playerNeedPresenter,
+            IQuestHandler questHandler
         )
         {
+            _questHandler = questHandler;
             _jumpModel = jumpModel;
             _playerInputHandler = playerInputHandler;
             _playerParameters = playerParametersProvider.PlayerParameters;
@@ -52,6 +56,7 @@ namespace Game.Player
         private void OnEnable()
         {
             _playerInputHandler.Subscribe();
+            _questHandler.Enable();
         }
 
         private void OnDisable()
