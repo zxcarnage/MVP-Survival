@@ -20,9 +20,9 @@ namespace Game.Player.Models
             }
         }
 
-        public void Consume(ECollectableType consumedType)
+        public void Consume(ECollectableType consumedType, int amount = 1)
         {
-            ConsumableInventory[consumedType] = Mathf.Clamp(ConsumableInventory[consumedType] - 1, 0, int.MaxValue);
+            ConsumableInventory[consumedType] = Mathf.Clamp(ConsumableInventory[consumedType] - amount, 0, int.MaxValue);
         }
     }
 }

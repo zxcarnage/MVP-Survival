@@ -1,6 +1,7 @@
 using Extensions.UniRX;
 using Game.Collectable;
 using Game.Player.Models;
+using Game.QuestHandler;
 using Game.Services.Input;
 using UniRx;
 using UniRx.Triggers;
@@ -21,14 +22,17 @@ namespace Game.Ship.Impl
         private IInputProvider _inputProvider;
         private InventoryModel _inventoryModel;
         private IShipPresenter _shipPresenter;
+        private IQuestHandler _questHandler;
 
         [Inject]
         public void Construct(
             IInputProvider inputProvider,
             InventoryModel inventoryModel,
-            IShipPresenter shipPresenter
+            IShipPresenter shipPresenter,
+            IQuestHandler questHandler
         )
         {
+            _questHandler = questHandler;
             _shipPresenter = shipPresenter;
             _inventoryModel = inventoryModel;
             _inputProvider = inputProvider;
@@ -47,6 +51,9 @@ namespace Game.Ship.Impl
                 return;
             
             _shipPresenter.Build(_inactiveShip, _activeShip);
+            _inventoryModel.Consume(ECollectableType.Rock, 5);
+            _inventoryModel.Consume(ECollectableType.Wood, 10);
+            _questHandler.ShipQuestCompleted.Execute(true);
             
             return;
 
